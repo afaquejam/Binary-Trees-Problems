@@ -24,8 +24,25 @@ public class BSTTemplate {
 
 	}
 
+	// The search would be good for symbol tables.
+	// In this case, we just search for the key.
+	// Return the key if it's there.
+	// Return -1 if it's not.
 	public int search(int key) {
-		return 0;
+		return searchKey(root, key);
+	}
+
+	private int searchKey(Node root, int key) {
+		if (root == null)
+			return -1;
+
+		if (key == root.value)
+			return root.value;
+
+		if (key < root.value)
+			return searchKey(root.left, key);
+		else
+			return searchKey(root.right, key);
 	}
 
 	public void printTree() {
@@ -50,7 +67,10 @@ public class BSTTemplate {
 		tree.insert(1);
 		tree.insert(5);
 
-
 		tree.printTree();
+		System.out.println("Searching stuff.");
+		System.out.println(tree.search(1));
+		System.out.println(tree.search(8));
+		System.out.println(tree.search(-98));
 	}
 }
