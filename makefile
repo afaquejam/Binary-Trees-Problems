@@ -1,6 +1,6 @@
 all:
-	javac BSTTemplate.java
-	java BSTTemplate
+	javac RootToLeaf.java
+	java RootToLeaf
 
 
 clean:
