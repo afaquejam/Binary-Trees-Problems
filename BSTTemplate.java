@@ -1,5 +1,6 @@
 public class BSTTemplate {
 	private Node root = null;
+	private int nodeCount;
 
 	public void insert(int number) {
 		root = insertNode(root, number);
@@ -11,8 +12,10 @@ public class BSTTemplate {
 		newNode.right = null;
 		newNode.left = null;
 
-		if (root == null)
+		if (root == null) {
+			nodeCount++;
 			return newNode;
+		}
 
 		if (number <= root.value) {
 			root.left = insertNode(root.left, number);
@@ -58,19 +61,49 @@ public class BSTTemplate {
 		traverse(root.right);
 	}
 
+	public int size() {
+		return nodeCount;
+	}
+
+	public int maxDepth() {
+		return calculateDepth(root);
+	}
+
+	private int calculateDepth(Node root) {
+		if (root == null)
+			return 0;
+
+		int count = 1;
+		int leftSubTreeDepth = calculateDepth(root.left);
+		int rightSubTreeDepth = calculateDepth(root.right);
+
+		if (leftSubTreeDepth > rightSubTreeDepth)
+			count = count + leftSubTreeDepth;
+		else
+			count = count + rightSubTreeDepth;
+
+		return count;
+	}
+
+
 	public static void main(String[] arguments) {
 		BSTTemplate tree = new BSTTemplate();
-		tree.insert(4);
 		tree.insert(6);
+		tree.insert(4);
 		tree.insert(3);
 		tree.insert(8);
 		tree.insert(1);
 		tree.insert(5);
+		tree.insert(0);
 
+		
 		tree.printTree();
 		System.out.println("Searching stuff.");
 		System.out.println(tree.search(1));
 		System.out.println(tree.search(8));
 		System.out.println(tree.search(-98));
+		System.out.println("Number of node in this freaking tree: " +
+			tree.size());
+		System.out.println("Max Depth of Tree: " + tree.maxDepth());
 	}
 }
