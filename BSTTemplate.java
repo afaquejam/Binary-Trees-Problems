@@ -49,16 +49,34 @@ public class BSTTemplate {
 	}
 
 	public void printTree() {
-		traverse(root);
+		inOrder(root);
 	}
 
-	private void traverse(Node root) {
+	private void preOrder(Node root) {
 		if (root == null)
 			return;
 
 		System.out.println(root.value);
-		traverse(root.left);
-		traverse(root.right);
+		preOrder(root.left);
+		preOrder(root.right);
+	}
+
+	private void inOrder(Node root) {
+		if (root == null)
+			return;
+
+		inOrder(root.left);
+		System.out.println(root.value);
+		inOrder(root.right);
+	}
+
+	private void postOrder(Node root) {
+		if (root == null)
+			return;
+
+		postOrder(root.left);
+		postOrder(root.right);
+		System.out.println(root.value);
 	}
 
 	public int size() {
@@ -85,16 +103,24 @@ public class BSTTemplate {
 		return count;
 	}
 
+	public int minimumValue() {
+		Node current = root;
+		int minimum = current.value;
+		while (current.left != null) {
+			current = current.left;
+			if (current.value < minimum)
+				minimum = current.value;
+		}
+		return minimum;
+	}
+
 
 	public static void main(String[] arguments) {
 		BSTTemplate tree = new BSTTemplate();
 		tree.insert(6);
 		tree.insert(4);
-		tree.insert(3);
 		tree.insert(8);
-		tree.insert(1);
 		tree.insert(5);
-		tree.insert(0);
 
 		
 		tree.printTree();
@@ -105,5 +131,6 @@ public class BSTTemplate {
 		System.out.println("Number of node in this freaking tree: " +
 			tree.size());
 		System.out.println("Max Depth of Tree: " + tree.maxDepth());
+		System.out.println("Minimum Value is: " + tree.minimumValue());
 	}
 }
