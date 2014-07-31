@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class RootToLeaf {
 	private Node root = null;
 	private int nodeCount;
@@ -107,19 +108,46 @@ public class RootToLeaf {
 			return hasLeftTree || hasRightTree;
 	}
 
+	public void printRootToLeaf() {
+		System.out.println("Printing All possible paths.");
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		printRootToLeaf(root, list);
+
+	}
+
+	private void printRootToLeaf(Node node, ArrayList<Integer> list) {
+		if (node == null)
+			return;
+		ArrayList<Integer> copyList = new ArrayList<Integer>(list);
+		copyList.add(node.value);
+		if (node.left == null && node.right == null) {
+			for (Integer number : copyList)
+				System.out.print(number + " ");
+			System.out.println();
+			return;
+		}
+
+		printRootToLeaf(node.left, copyList);
+		printRootToLeaf(node.right, copyList);
+	}
+
 	
 
 	public static void main(String[] arguments) {
 		RootToLeaf tree = new RootToLeaf();
 		tree.insert(5);
 		tree.insert(4);
-		tree.insert(6);
 		tree.insert(8);
-		tree.insert(9);
+		tree.insert(11);
+		tree.insert(13);
+		tree.insert(7);
+		tree.insert(2);
+		tree.insert(1);
 
 		
 		tree.printTree();
 		System.out.println(tree.hasPathSum(27));
+		tree.printRootToLeaf();
 		
 	}
 }
