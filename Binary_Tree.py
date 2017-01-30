@@ -23,6 +23,10 @@ class BinaryTree:
         return root
 
     def printTree(self):
+        if self.root == None:
+            print("Empty Tree!")
+            return
+        print("Printing tree in-order:")
         self.__printTree(self.root)
 
     def __printTree(self, root):
@@ -32,6 +36,20 @@ class BinaryTree:
         print(root.data)
         self.__printTree(root.right)
 
+    def printPostOrder(self):
+        if self.root == None:
+            print("Empty Tree!")
+            return
+        print("Printing tree Post order:")
+        self.__printPostOrder(self.root)
+
+    def __printPostOrder(self, root):
+        if root == None:
+            return
+
+        self.__printPostOrder(root.left)
+        self.__printPostOrder(root.right)
+        print(root.data)
 
 
     def size(self, root_node):
@@ -71,6 +89,10 @@ if __name__ == "__main__":
     # print(tree.max_depth(tree.root))
 
     binary_search_tree = BinaryTree()
-    for iterator in range(0, 10):
-        binary_search_tree.insert(iterator)
+    binary_search_tree.insert(4)
+    binary_search_tree.insert(5)
+    binary_search_tree.insert(2)
+    binary_search_tree.insert(3)
+    binary_search_tree.insert(1)
     binary_search_tree.printTree()
+    binary_search_tree.printPostOrder()
