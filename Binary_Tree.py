@@ -51,6 +51,23 @@ class BinaryTree:
         self.__printPostOrder(root.right)
         print(root.data)
 
+    def hasPathSum(self, sum):
+        return self.__hasPathSum(self.root, sum)
+
+    def __hasPathSum(self, root, sum):
+        if root == None:
+            return False
+
+        if root.left == None and root.right == None:
+            return (sum - root.data) == 0
+
+        leftTreeResult = self.__hasPathSum(root.left, (sum - root.data))
+        if leftTreeResult:
+            return True
+
+        rightTreeResult = self.__hasPathSum(root.right, (sum - root.data))
+        return leftTreeResult or rightTreeResult
+
 
     def size(self, root_node):
         if root_node == None:
@@ -96,3 +113,7 @@ if __name__ == "__main__":
     binary_search_tree.insert(1)
     binary_search_tree.printTree()
     binary_search_tree.printPostOrder()
+
+    print(binary_search_tree.hasPathSum(7))
+    print(binary_search_tree.hasPathSum(9))
+    print(binary_search_tree.hasPathSum(10))
