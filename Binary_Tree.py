@@ -83,6 +83,23 @@ class BinaryTree:
 
         return 1 + max(self.max_depth(root_node.left), self.max_depth(root_node.right))
 
+    def printPaths(self, root_node):
+        self.__printPaths(root_node, [])
+
+    def __printPaths(self, root_node, parent_list):
+        if root_node == None:
+            return
+
+        local_list = list(parent_list)
+        local_list.append(root_node.data)
+
+        if root_node.left == None and root_node.right == None:
+            print local_list
+            return
+
+        self.__printPaths(root_node.left, local_list)
+        self.__printPaths(root_node.right, local_list)
+
 if __name__ == "__main__":
     # first = TreeNode(1)
     # second = TreeNode(2)
@@ -107,13 +124,16 @@ if __name__ == "__main__":
 
     binary_search_tree = BinaryTree()
     binary_search_tree.insert(4)
-    binary_search_tree.insert(5)
+    binary_search_tree.insert(6)
     binary_search_tree.insert(2)
     binary_search_tree.insert(3)
     binary_search_tree.insert(1)
+    binary_search_tree.insert(5)
+    binary_search_tree.insert(7)
     binary_search_tree.printTree()
-    binary_search_tree.printPostOrder()
-
-    print(binary_search_tree.hasPathSum(7))
-    print(binary_search_tree.hasPathSum(9))
-    print(binary_search_tree.hasPathSum(10))
+    # binary_search_tree.printPostOrder()
+    #
+    # print(binary_search_tree.hasPathSum(7))
+    # print(binary_search_tree.hasPathSum(9))
+    # print(binary_search_tree.hasPathSum(10))
+    binary_search_tree.printPaths(binary_search_tree.root)
